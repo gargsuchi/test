@@ -29,7 +29,9 @@ class NumberToWord extends NumericFormatterBase {
    */
   public static function defaultSettings() {
     return [
-        'currency' => '$',
+        'currency_sign' => '$',
+        'currency_words' => 'dollars',
+        'currency_fractions' => 'cents',
         'locale' => 'en_US',
       ] + parent::defaultSettings();
   }
@@ -52,10 +54,20 @@ class NumberToWord extends NumericFormatterBase {
       '#weight' => 5,
     ];
 
-    $elements['currency'] = [
-      '#title' => t('Currency'),
+    $elements['currency_sign'] = [
+      '#title' => t('Currency Sign'),
       '#type' => 'textfield',
-      '#default_value' => $this->getSetting('currency'),
+      '#default_value' => $this->getSetting('currency1'),
+    ];
+    $elements['currency_words'] = [
+      '#title' => t('Currency in Words'),
+      '#type' => 'textfield',
+      '#default_value' => $this->getSetting('currency_words'),
+    ];
+    $elements['currency_fractions'] = [
+      '#title' => t('Currency in fractions'),
+      '#type' => 'textfield',
+      '#default_value' => $this->getSetting('currency_fractions'),
     ];
 
     return $elements;
@@ -69,14 +81,29 @@ class NumberToWord extends NumericFormatterBase {
 
     $fnum = explode('.', $number);
 
-    $num1 = abs($number);
-    $ret = $this->getSetting('currency') . number_format($num1, 2) . "<br>";
-    $ret .= ucwords($test->toWords($number, $this->getSetting('locale')));
+    $number_part = $this->getSetting('currency_sign') . number_format($number, 2). "<br>";
 
-    if ($num1 != $number) {
-      $ret .= ' point ';
-      $ret .= ucwords($test->toWords($fnum[1], $this->getSetting('locale')));
+    $string_part = strtoupper($test->toWords($fnum[0], $this->getSetting('locale')));
+
+    //Code to add commas in the string.
+    $tmp_string = explode(" ", trim($string_part));
+    $count = count($tmp_string);
+    $new_string = $tmp_string[$count-3] . " " . $tmp_string[$count-2] . " "  . $tmp_string[$count-1];
+
+    if ($count > 3) {
+      // Only now commas will need to be added to the text.
+      for ($i = $count - 4; $i >= 0; $i = $i - 4) {
+        if (isset($new_string)) {
+          $new_string = $tmp_string[$i-3] . " " . $tmp_string[$i-2] . " " . $tmp_string[$i-1] . " "  . $tmp_string[$i] . ", " . $new_string;
+        }
+      }
     }
-    return $ret;
+    $string_part = $new_string . " " . strtoupper($this->getSetting('currency_words'));
+
+    if (!empty($fnum[1])) {
+      $string_part .= ' AND ';
+      $string_part .= strtoupper($test->toWords($fnum[1], $this->getSetting('locale'))). " " . strtoupper($this->getSetting('currency_fractions'));
+    }
+    return $number_part . $string_part;
   }
 }
