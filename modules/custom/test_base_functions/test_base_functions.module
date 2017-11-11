@@ -1,0 +1,39 @@
+<?php
+
+/**
+ * @file
+ * Contains test_base_functions.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function test_base_functions_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the test_base_functions module.
+    case 'help.page.test_base_functions':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Module to add in some base functions for the test site.') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+
+/**
+ * Implement a workaround to make sure that Decimal field accepts big numbers.
+ * https://www.drupal.org/node/2230909
+ * @param $element
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ * @param $context
+ */
+function test_base_functions_field_widget_form_alter(&$element, \Drupal\Core\Form\FormStateInterface $form_state, $context) {
+  $field_definition = $context['items']->getFieldDefinition();
+  if ($field_definition->getType() == 'decimal') {
+    $element['value']['#step'] = 'any';
+  }
+}

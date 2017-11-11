@@ -1,0 +1,7 @@
+name: Test Base Functions
+type: module
+description: Module to add in some base functions for the test site.
+core: 8.x
+package: Custom
+dependencies:
+  - number_to_word

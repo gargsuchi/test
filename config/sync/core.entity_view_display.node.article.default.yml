@@ -1,0 +1,28 @@
+uuid: 4076e5aa-0c19-4423-a2fa-c91403553a82
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.article.field_amount2
+    - node.type.article
+  module:
+    - number_to_word
+    - user
+_core:
+  default_config_hash: qVtHNxqdXB9w369AO5JB5SVhflquWqFm5xfyvYLAIlM
+id: node.article.default
+targetEntityType: node
+bundle: article
+mode: default
+content:
+  field_amount2:
+    weight: 2
+    label: hidden
+    settings:
+      currency: $
+      locale: en_US
+    third_party_settings: {  }
+    type: number_to_word
+    region: content
+hidden:
+  links: true
