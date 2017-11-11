@@ -784,12 +784,12 @@ $settings['entity_update_batch_size'] = 50;
 #   include $app_root . '/' . $site_path . '/settings.local.php';
 # }
 $databases['default']['default'] = array (
-  'database' => 'd82',
-  'username' => 'root',
-  'password' => 'root',
+  'database' => '<dbname>',
+  'username' => '<dbuser>',
+  'password' => '<dbpass>',
   'prefix' => '',
   'host' => '127.0.0.1',
-  'port' => '8889',
+  'port' => '<dbport>',
   'namespace' => 'Drupal\\Core\\Database\\Driver\\mysql',
   'driver' => 'mysql',
 );
