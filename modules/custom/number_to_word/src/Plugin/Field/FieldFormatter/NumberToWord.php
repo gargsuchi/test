@@ -57,7 +57,7 @@ class NumberToWord extends NumericFormatterBase {
     $elements['currency_sign'] = [
       '#title' => t('Currency Sign'),
       '#type' => 'textfield',
-      '#default_value' => $this->getSetting('currency1'),
+      '#default_value' => $this->getSetting('currency_sign'),
     ];
     $elements['currency_words'] = [
       '#title' => t('Currency in Words'),
