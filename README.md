@@ -26,7 +26,7 @@ Output:	John Smith<br>
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
 ### Prerequisites
 
@@ -80,7 +80,7 @@ formatter.
 The code can be seen in the custom module `number_to_word` 
 
 
-To start, as a anonymous user, go to `/node/add/article` 
+To start, as an anonymous user, go to `/node/add/article` 
 
 ![Enter Data](images/1.png "Screen to enter cheque.")
 
@@ -99,3 +99,4 @@ And these are settings.
 The advantage of using this formatter was that this can be applied to any field 
 as per the choice of the choice of the site builder.
 
+To deploy this formatter on any other system, you just need to take the custom module specified above and enable it.
